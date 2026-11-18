@@ -1,4 +1,4 @@
-# Student Guidance Portal — CA College Project
+# Student Guidance Portal 
 
 A simple, beginner-friendly Django web application built for a two-member Computer Applications (CA) project. Students can browse academic guidance topics, explore career paths, search careers, and submit questions that an administrator answers through Django Admin.
 
