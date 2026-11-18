@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Registration - Student Guidance Portal{% endblock %}
+
+{% block content %}
+<div class="container py-4 py-lg-5">
+
+  <div class="auth-wrapper row g-0">
+    <!-- Left Column: Navy Portal Info Panel -->
+    <div class="col-md-5 auth-sidebar">
+      <div>
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <span class="portal-logo-icon" style="background-color: var(--teal);">
+            <i class="bi bi-mortarboard-fill"></i>
+          </span>
+          <span class="fw-bold fs-5 text-white">Student Portal</span>
+        </div>
+
+        <h2 class="h4 fw-bold text-white mb-2">Create Your Account</h2>
+        <p class="text-white-50 small mb-4" style="line-height: 1.6;">
+          Register as an undergraduate student to submit personalized guidance questions and follow your academic journey.
+        </p>
+
+        <ul class="list-unstyled text-white-50 small d-grid gap-3 mb-4">
+          <li class="d-flex align-items-start gap-2 text-white">
+            <i class="bi bi-check-circle-fill text-teal mt-1"></i>
+            <div>
+              <strong class="d-block text-white">Structured Study Advice</strong>
+              <span class="text-white-50">Proven strategies for weekly planning, midterms, and finals.</span>
+            </div>
+          </li>
+          <li class="d-flex align-items-start gap-2 text-white">
+            <i class="bi bi-check-circle-fill text-teal mt-1"></i>
+            <div>
+              <strong class="d-block text-white">5 Technical Career Tracks</strong>
+              <span class="text-white-50">Clear roadmaps, skills, and industry job roles.</span>
+            </div>
+          </li>
+          <li class="d-flex align-items-start gap-2 text-white">
+            <i class="bi bi-check-circle-fill text-teal mt-1"></i>
+            <div>
+              <strong class="d-block text-white">Personal Query Workspace</strong>
+              <span class="text-white-50">Track questions and read answers on your dashboard.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="text-white-50 small pt-3 border-top border-white border-opacity-10">
+        Official University Mentorship &amp; Guidance Platform
+      </div>
+    </div>
+
+    <!-- Right Column: Registration Form -->
+    <div class="col-md-7 auth-form-panel">
+      <div class="mb-4">
+        <span class="badge bg-light text-navy border px-2 py-1 mb-1 fw-semibold small">Student Registration</span>
+        <h1 class="h4 fw-bold text-navy mb-1">Get Started in Seconds</h1>
+        <p class="text-muted small mb-0">Fill in your basic information to set up your account.</p>
+      </div>
+
+      <form method="post" novalidate>
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger py-2 small" role="alert">
+          {% for error in form.non_field_errors %}
+            <div><i class="bi bi-exclamation-triangle-fill me-1"></i>{{ error }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Full Name -->
+        <div class="mb-3">
+          <label for="{{ form.first_name.id_for_label }}" class="form-label">
+            Full Name <span class="text-danger">*</span>
+          </label>
+          {{ form.first_name }}
+          {% if form.first_name.errors %}
+            <div class="text-danger small mt-1">
+              <i class="bi bi-exclamation-circle me-1"></i>{{ form.first_name.errors.0 }}
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Username -->
+        <div class="mb-3">
+          <label for="{{ form.username.id_for_label }}" class="form-label">
+            Username <span class="text-danger">*</span>
+          </label>
+          {{ form.username }}
+          {% if form.username.errors %}
+            <div class="text-danger small mt-1">
+              <i class="bi bi-exclamation-circle me-1"></i>{{ form.username.errors.0 }}
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="{{ form.email.id_for_label }}" class="form-label">
+            Email Address <span class="text-danger">*</span>
+          </label>
+          {{ form.email }}
+          {% if form.email.errors %}
+            <div class="text-danger small mt-1">
+              <i class="bi bi-exclamation-circle me-1"></i>{{ form.email.errors.0 }}
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <label for="{{ form.password.id_for_label }}" class="form-label">
+            Password <span class="text-danger">*</span>
+          </label>
+          {{ form.password }}
+          <div class="form-text text-muted small">Minimum 6 characters.</div>
+          {% if form.password.errors %}
+            <div class="text-danger small mt-1">
+              <i class="bi bi-exclamation-circle me-1"></i>{{ form.password.errors.0 }}
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="mb-4">
+          <label for="{{ form.confirm_password.id_for_label }}" class="form-label">
+            Confirm Password <span class="text-danger">*</span>
+          </label>
+          {{ form.confirm_password }}
+          {% if form.confirm_password.errors %}
+            <div class="text-danger small mt-1">
+              <i class="bi bi-exclamation-circle me-1"></i>{{ form.confirm_password.errors.0 }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="d-grid mb-3">
+          <button type="submit" class="btn btn-teal py-2 d-inline-flex align-items-center justify-content-center gap-2">
+            <i class="bi bi-person-check-fill"></i>
+            <span>Create Student Account</span>
+          </button>
+        </div>
+      </form>
+
+      <div class="text-center pt-3 border-top small text-muted">
+        Already registered?
+        <a href="{% url 'login' %}" class="text-navy fw-semibold text-decoration-none">Log in to your account</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

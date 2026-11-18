@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}My Queries - Student Guidance Portal{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+  <!-- Header Banner -->
+  <section class="page-header mb-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+      <div>
+        <span class="badge bg-light text-teal border px-2 py-1 mb-1 fw-semibold small">Question History</span>
+        <h1 class="h3 fw-bold text-navy mb-1">My Queries</h1>
+        <p class="text-muted small mb-0">
+          Track the review status of your questions and read verified responses from college administrators.
+        </p>
+      </div>
+      <a href="{% url 'ask_question' %}" class="btn btn-teal d-inline-flex align-items-center gap-1">
+        <i class="bi bi-plus-circle"></i>
+        <span>Ask a Question</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Filter Pills -->
+  <div class="d-flex gap-2 flex-wrap mb-4">
+    <a href="{% url 'my_queries' %}"
+       class="btn btn-sm {% if not status_filter %}btn-primary{% else %}btn-outline-secondary bg-white{% endif %}">
+      All Questions
+    </a>
+    <a href="{% url 'my_queries' %}?status=Pending"
+       class="btn btn-sm {% if status_filter == 'Pending' %}btn-warning text-dark{% else %}btn-outline-secondary bg-white{% endif %}">
+      <i class="bi bi-clock me-1"></i>Pending
+    </a>
+    <a href="{% url 'my_queries' %}?status=Answered"
+       class="btn btn-sm {% if status_filter == 'Answered' %}btn-teal{% else %}btn-outline-secondary bg-white{% endif %}">
+      <i class="bi bi-check-circle me-1"></i>Answered
+    </a>
+  </div>
+
+  <!-- Queries List -->
+  {% if queries %}
+  <div class="d-grid gap-3">
+    {% for q in queries %}
+    <article class="card p-4 bg-white border">
+      <!-- Top Row: Category, Status Badge & Timestamp -->
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 pb-2 border-bottom">
+        <div class="d-flex align-items-center gap-2">
+          <span class="badge-category">{{ q.category }} Guidance</span>
+          {% include 'includes/status_badge.html' with status=q.status %}
+        </div>
+        <small class="text-muted">
+          <i class="bi bi-calendar3 me-1"></i>Submitted on {{ q.created_at|date:"M d, Y, h:i A" }}
+        </small>
+      </div>
+
+      <!-- Question Content -->
+      <div class="mb-3">
+        <span class="fw-semibold text-navy small d-block mb-1">Your Question:</span>
+        <p class="mb-0 text-slate" style="line-height: 1.65; white-space: pre-line;">{{ q.question }}</p>
+      </div>
+
+      <!-- Administrator Answer Box -->
+      {% if q.answer %}
+      <div class="p-3 rounded bg-light border-start border-4 border-success">
+        <div class="d-flex align-items-center gap-2 mb-1">
+          <i class="bi bi-check-circle-fill text-success"></i>
+          <strong class="text-success small">Administrator Response:</strong>
+        </div>
+        <p class="mb-0 small text-muted" style="line-height: 1.65; white-space: pre-line;">{{ q.answer }}</p>
+      </div>
+      {% else %}
+      <div class="p-3 rounded bg-light border text-muted small fst-italic">
+        <i class="bi bi-hourglass-split me-1 text-warning"></i>
+        <span>Waiting for an administrator to review and answer this query. Check back shortly.</span>
+      </div>
+      {% endif %}
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="card p-5 text-center bg-white border">
+    <div class="icon-box icon-box-navy mx-auto mb-3" style="width: 52px; height: 52px; font-size: 1.5rem;">
+      <i class="bi bi-inbox"></i>
+    </div>
+    <h2 class="h5 fw-bold text-navy mb-2">No Queries Found</h2>
+    <p class="text-muted small mb-3">
+      {% if status_filter %}
+        You do not have any {{ status_filter|lower }} queries in your account right now.
+      {% else %}
+        You haven't submitted any guidance questions yet.
+      {% endif %}
+    </p>
+    <div>
+      <a href="{% url 'ask_question' %}" class="btn btn-teal btn-sm">
+        <i class="bi bi-plus-circle me-1"></i>Ask Your First Question
+      </a>
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

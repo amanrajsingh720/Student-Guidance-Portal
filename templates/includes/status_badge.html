@@ -1,0 +1,9 @@
+{% if status == 'Answered' %}
+  <span class="badge-status badge-answered">
+    <i class="bi bi-check-circle-fill me-1"></i>Answered
+  </span>
+{% else %}
+  <span class="badge-status badge-pending">
+    <i class="bi bi-clock-fill me-1"></i>Pending
+  </span>
+{% endif %}

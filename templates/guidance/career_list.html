@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block title %}Career Guidance - Student Guidance Portal{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+  <!-- Page Header -->
+  <section class="page-header mb-4">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+      <div>
+        <span class="badge bg-light text-teal border px-3 py-1 mb-2 fw-semibold">
+          <i class="bi bi-briefcase-fill me-1"></i>Career Exploration
+        </span>
+        <h1 class="h3 fw-bold text-navy mb-1">Career Guidance</h1>
+        <p class="text-muted small mb-0">
+          Discover modern technology career paths, industry skill expectations, beginner roadmaps, and entry-level job roles.
+        </p>
+      </div>
+
+      {% if user.is_authenticated %}
+      <a href="{% url 'ask_question' %}?category=Career" class="btn btn-teal btn-sm d-inline-flex align-items-center gap-1">
+        <i class="bi bi-question-circle"></i>
+        <span>Ask Career Doubt</span>
+      </a>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- Functional GET Search Bar -->
+  <div class="card p-3 mb-4 bg-white border">
+    <form method="get" action="{% url 'career_guidance' %}" class="row g-2 align-items-center">
+      <div class="col-md-9">
+        <label for="careerSearch" class="visually-hidden">Search careers</label>
+        <div class="input-group">
+          <span class="input-group-text bg-white border-end-0 text-muted">
+            <i class="bi bi-search"></i>
+          </span>
+          <input id="careerSearch" type="search" name="q" class="form-control border-start-0"
+                 placeholder="Search by career title or skill (e.g. Web Development, Python, Cloud, Security)..."
+                 value="{{ search_query }}">
+        </div>
+      </div>
+      <div class="col-md-3 d-flex gap-2">
+        <button type="submit" class="btn btn-primary w-100 d-inline-flex align-items-center justify-content-center gap-1">
+          <i class="bi bi-search"></i>
+          <span>Search</span>
+        </button>
+        {% if search_query %}
+        <a href="{% url 'career_guidance' %}" class="btn btn-outline-secondary d-inline-flex align-items-center gap-1">
+          <i class="bi bi-x-circle"></i>
+          <span>Clear</span>
+        </a>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+
+  {% if search_query %}
+  <div class="d-flex align-items-center justify-content-between mb-3 small text-muted">
+    <div>
+      Showing <strong>{{ total_count }}</strong> matching career{{ total_count|pluralize }} for <strong>"{{ search_query }}"</strong>.
+    </div>
+    <a href="{% url 'career_guidance' %}" class="text-teal text-decoration-none fw-semibold">Reset Search</a>
+  </div>
+  {% endif %}
+
+  <!-- Career Cards Grid -->
+  <div class="row g-4">
+    {% for career in careers %}
+    <div class="col-md-6 col-lg-4">
+      <article class="card card-interactive h-100 p-4 d-flex flex-column career-card {% cycle 'career-accent-navy' 'career-accent-teal' 'career-accent-blue' 'career-accent-slate' 'career-accent-indigo' %}">
+        <!-- Card Header: Icon & Track Type -->
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <div class="icon-box icon-box-teal">
+            <i class="bi {{ career.icon }}"></i>
+          </div>
+          <span class="badge bg-light text-navy border small">Career Track</span>
+        </div>
+
+        <!-- Career Title -->
+        <h2 class="h5 fw-bold mb-2">
+          <a href="{% url 'career_detail' career.slug %}" class="text-navy text-decoration-none">
+            {{ career.title }}
+          </a>
+        </h2>
+
+        <!-- Brief Description -->
+        <p class="text-muted small flex-grow-1 mb-3" style="line-height: 1.6;">
+          {{ career.description|truncatechars:130 }}
+        </p>
+
+        <!-- Relevant Skills Pills -->
+        <div class="mb-3">
+          <div class="small fw-semibold text-navy mb-1" style="font-size: 0.78rem;">Relevant Skills:</div>
+          <div>
+            {% for skill in career.get_skills_list|slice:":4" %}
+              <span class="skill-tag">{{ skill }}</span>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Explore Button -->
+        <a href="{% url 'career_detail' career.slug %}" class="btn btn-outline-navy btn-sm mt-auto w-100 d-inline-flex align-items-center justify-content-center gap-1">
+          <span>Explore Career Path</span>
+          <i class="bi bi-arrow-right"></i>
+        </a>
+      </article>
+    </div>
+    {% empty %}
+    <div class="col-12">
+      <div class="card p-5 text-center bg-white border">
+        <div class="icon-box icon-box-navy mx-auto mb-3" style="width: 52px; height: 52px; font-size: 1.5rem;">
+          <i class="bi bi-search"></i>
+        </div>
+        <h2 class="h5 fw-bold text-navy mb-2">No careers matched "{{ search_query }}"</h2>
+        <p class="text-muted small mb-3">
+          We could not find any careers matching your search criteria. Try a different term such as "Development", "Data", or "Security".
+        </p>
+        <div>
+          <a href="{% url 'career_guidance' %}" class="btn btn-primary btn-sm">
+            <i class="bi bi-arrow-counterclockwise me-1"></i>Show All Careers
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

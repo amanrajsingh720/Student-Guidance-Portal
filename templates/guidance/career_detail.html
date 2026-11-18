@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ career.title }} - Career Guidance{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+  <!-- Breadcrumb & Back Link -->
+  <div class="mb-3">
+    <a href="{% url 'career_guidance' %}" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center gap-1">
+      <i class="bi bi-arrow-left"></i>
+      <span>Back to Career Guidance</span>
+    </a>
+  </div>
+
+  <!-- Career Header Banner -->
+  <section class="page-header mb-4">
+    <div class="d-flex align-items-center gap-3">
+      <div class="icon-box icon-box-teal" style="width: 54px; height: 54px; font-size: 1.6rem;">
+        <i class="bi {{ career.icon }}"></i>
+      </div>
+      <div>
+        <span class="badge bg-light text-teal border px-2 py-1 mb-1 fw-semibold small">Technical Career Path</span>
+        <h1 class="h3 fw-bold text-navy mb-1">{{ career.title }}</h1>
+        <p class="text-muted small mb-0">Complete overview, essential skills, beginner roadmap steps, and entry job roles.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="row g-4">
+    <!-- Main Column: Overview & Beginner Roadmap -->
+    <div class="col-lg-8">
+      <!-- Career Overview -->
+      <section class="card p-4 mb-4 bg-white border">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <span class="icon-box icon-box-navy" style="width: 34px; height: 34px; font-size: 1rem;">
+            <i class="bi bi-info-circle-fill"></i>
+          </span>
+          <h2 class="h5 fw-bold text-navy mb-0">Career Overview</h2>
+        </div>
+        <p class="text-muted mb-0" style="line-height: 1.75; font-size: 0.95rem;">
+          {{ career.description }}
+        </p>
+      </section>
+
+      <!-- Beginner Roadmap (Numbered Timeline) -->
+      <section class="card p-4 mb-4 bg-white border">
+        <div class="d-flex align-items-center justify-content-between mb-4 pb-2 border-bottom">
+          <div class="d-flex align-items-center gap-2">
+            <span class="icon-box icon-box-teal" style="width: 34px; height: 34px; font-size: 1rem;">
+              <i class="bi bi-signpost-2-fill"></i>
+            </span>
+            <h2 class="h5 fw-bold text-navy mb-0">Beginner Roadmap</h2>
+          </div>
+          <span class="badge bg-light text-navy border small">{{ roadmap_steps|length }} Step Roadmap</span>
+        </div>
+
+        <div class="roadmap-timeline ps-4">
+          {% for step in roadmap_steps %}
+          <div class="timeline-step">
+            <span class="timeline-number">{{ forloop.counter }}</span>
+            <div class="card p-3 ms-2 border">
+              <span class="fw-semibold text-navy small mb-1">Milestone {{ forloop.counter }}</span>
+              <p class="text-muted small mb-0" style="line-height: 1.6;">{{ step }}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </section>
+    </div>
+
+    <!-- Sidebar: Skills, Job Roles, and Doubt CTA -->
+    <aside class="col-lg-4">
+      <!-- Relevant Skills -->
+      <div class="card p-4 mb-4 bg-white border">
+        <h3 class="h6 fw-bold text-navy mb-3 d-flex align-items-center gap-2">
+          <i class="bi bi-lightning-charge-fill text-teal"></i>
+          <span>Relevant Skills</span>
+        </h3>
+        <div class="d-none">{{ career.skills }}</div>
+        <div>
+          {% for skill in skills %}
+            <span class="skill-tag">{{ skill }}</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Example Job Roles -->
+      <div class="card p-4 mb-4 bg-white border">
+        <h3 class="h6 fw-bold text-navy mb-3 d-flex align-items-center gap-2">
+          <i class="bi bi-person-workspace text-teal"></i>
+          <span>Example Job Roles</span>
+        </h3>
+        <ul class="list-unstyled mb-0 d-grid gap-2 small">
+          {% for role in job_roles %}
+          <li class="d-flex align-items-center gap-2 text-muted">
+            <i class="bi bi-check-circle-fill text-teal" style="font-size: 0.95rem;"></i>
+            <span>{{ role }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Ask Question About Career CTA -->
+      <div class="card p-4 bg-light border">
+        <h3 class="h6 fw-bold text-navy mb-2">Have Questions on {{ career.title }}?</h3>
+        <p class="text-muted small mb-3">
+          Ask our mentor administrators regarding portfolio projects, internship timelines, or interview prep.
+        </p>
+        {% if user.is_authenticated %}
+        <a href="{% url 'ask_question' %}?category=Career" class="btn btn-teal btn-sm w-100 d-inline-flex align-items-center justify-content-center gap-1">
+          <i class="bi bi-question-circle"></i>
+          <span>Ask Career Question</span>
+        </a>
+        {% else %}
+        <a href="{% url 'login' %}?next={% url 'ask_question' %}" class="btn btn-primary btn-sm w-100">
+          Login to Ask a Question
+        </a>
+        {% endif %}
+      </div>
+    </aside>
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}Academic Guidance - Student Guidance Portal{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+  <!-- Page Banner / Header -->
+  <section class="page-header mb-4">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+      <div>
+        <span class="badge bg-light text-teal border px-3 py-1 mb-2 fw-semibold">
+          <i class="bi bi-book-half me-1"></i>Curated Student Advice
+        </span>
+        <h1 class="h3 fw-bold text-navy mb-1">Academic Guidance</h1>
+        <p class="text-muted small mb-0">
+          Practical strategies on study planning, time management, semester exam preparation, and higher education.
+        </p>
+      </div>
+
+      {% if user.is_authenticated %}
+      <a href="{% url 'ask_question' %}?category=Academic" class="btn btn-teal btn-sm d-inline-flex align-items-center gap-1">
+        <i class="bi bi-question-circle"></i>
+        <span>Ask Academic Doubt</span>
+      </a>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- 4 Predefined Academic Guidance Topics with Working Read More -->
+  <div class="row g-4 mb-5">
+    {% for topic in topics %}
+    <div class="col-md-6">
+      <article class="card card-interactive h-100 p-4 d-flex flex-column">
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <div class="icon-box icon-box-navy">
+            <i class="bi {{ topic.icon }}"></i>
+          </div>
+          <div>
+            <h2 class="h5 fw-bold text-navy mb-0">{{ topic.title }}</h2>
+            <small class="text-muted">Core Academic Module</small>
+          </div>
+        </div>
+
+        <!-- Short Description -->
+        <p class="fw-semibold text-teal small mb-2">{{ topic.summary }}</p>
+
+        <!-- Read More Button & Collapsible Detail -->
+        <div class="mt-auto pt-2">
+          <button class="btn btn-sm btn-outline-navy d-inline-flex align-items-center gap-1 mb-2"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#topicDetail{{ forloop.counter }}"
+                  aria-expanded="false"
+                  aria-controls="topicDetail{{ forloop.counter }}">
+            <span>Read In-Depth Advice</span>
+            <i class="bi bi-chevron-down" style="font-size: 0.75rem;"></i>
+          </button>
+
+          <div class="collapse" id="topicDetail{{ forloop.counter }}">
+            <div class="p-3 mt-2 rounded bg-light border text-muted small" style="line-height: 1.7;">
+              <strong class="d-block text-navy mb-1">Recommended Action Plan:</strong>
+              {{ topic.details }}
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Academic Doubt CTA -->
+  <section class="card p-4 p-lg-5 bg-white border text-center">
+    <div class="mx-auto" style="max-width: 620px;">
+      <span class="icon-box icon-box-teal mx-auto mb-3" style="width: 48px; height: 48px; font-size: 1.35rem;">
+        <i class="bi bi-chat-left-dots"></i>
+      </span>
+      <h3 class="h5 fw-bold text-navy mb-2">Have a Specific Academic Question?</h3>
+      <p class="text-muted small mb-3">
+        Whether you are struggling with subject balance, timetable scheduling, or preparing for postgraduate entrance tests,
+        submit a question to receive personalized guidance from an administrator.
+      </p>
+      <div>
+        {% if user.is_authenticated %}
+        <a href="{% url 'ask_question' %}?category=Academic" class="btn btn-teal">
+          <i class="bi bi-question-circle me-1"></i> Ask an Academic Question
+        </a>
+        {% else %}
+        <a href="{% url 'login' %}?next={% url 'ask_question' %}" class="btn btn-primary">
+          <i class="bi bi-box-arrow-in-right me-1"></i> Login to Ask a Question
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+</div>
+{% endblock %}

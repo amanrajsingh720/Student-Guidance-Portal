@@ -1,0 +1,288 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Student Guidance Portal{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+  <!-- ========================================================================
+       Hero Section
+       ======================================================================== -->
+  <section class="portal-hero mb-5">
+    <div class="row align-items-center g-4">
+      <!-- Left Column: Copy & CTAs -->
+      <div class="col-lg-7">
+        <span class="hero-pill">
+          <i class="bi bi-mortarboard-fill text-teal"></i>
+          <span>Official College Guidance Platform</span>
+        </span>
+
+        <h1 class="hero-headline mb-3">
+          Find the Right Direction for Your Academic and Career Journey
+        </h1>
+
+        <p class="hero-subtext mb-4">
+          A centralized university mentorship portal designed to help students master effective study habits,
+          explore practical technology career roadmaps, and submit one-on-one questions to college administrators.
+        </p>
+
+        <div class="d-flex flex-wrap gap-3">
+          <a href="{% url 'academic_guidance' %}" class="btn btn-primary btn-lg d-inline-flex align-items-center gap-2">
+            <i class="bi bi-journal-check"></i>
+            <span>Explore Academic Guidance</span>
+          </a>
+          <a href="{% url 'career_guidance' %}" class="btn btn-outline-teal btn-lg d-inline-flex align-items-center gap-2">
+            <i class="bi bi-compass"></i>
+            <span>Explore Career Paths</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Visual University Portal Preview UI Cards -->
+      <div class="col-lg-5">
+        <div class="hero-visual-card">
+          <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom">
+            <div class="d-flex align-items-center gap-2">
+              <span class="portal-logo-icon portal-logo-icon-sm">
+                <i class="bi bi-person-badge"></i>
+              </span>
+              <strong class="small text-navy">Student Portal Preview</strong>
+            </div>
+            <span class="badge bg-white text-muted border small">Live System</span>
+          </div>
+
+          <!-- Mini Card 1: Academic Focus -->
+          <div class="hero-mini-card mb-2">
+            <div class="d-flex align-items-start gap-2">
+              <span class="icon-box icon-box-navy" style="width: 32px; height: 32px; font-size: 0.95rem;">
+                <i class="bi bi-calendar-check"></i>
+              </span>
+              <div class="flex-grow-1">
+                <div class="d-flex justify-content-between">
+                  <span class="fw-semibold small text-navy">Weekly Study Planning</span>
+                  <span class="badge bg-light text-success border small">Active</span>
+                </div>
+                <small class="text-muted d-block" style="font-size: 0.76rem;">Pomodoro blocks &amp; midterm revision timeline</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mini Card 2: Career Roadmap -->
+          <div class="hero-mini-card mb-2">
+            <div class="d-flex align-items-start gap-2">
+              <span class="icon-box icon-box-teal" style="width: 32px; height: 32px; font-size: 0.95rem;">
+                <i class="bi bi-code-slash"></i>
+              </span>
+              <div class="flex-grow-1">
+                <div class="d-flex justify-content-between">
+                  <span class="fw-semibold small text-navy">Web Development Track</span>
+                  <span class="badge bg-light text-navy border small">5 Steps</span>
+                </div>
+                <div class="mt-1 d-flex gap-1">
+                  <span class="skill-tag" style="font-size: 0.72rem; padding: 0.1rem 0.45rem;">HTML/CSS</span>
+                  <span class="skill-tag" style="font-size: 0.72rem; padding: 0.1rem 0.45rem;">Python</span>
+                  <span class="skill-tag" style="font-size: 0.72rem; padding: 0.1rem 0.45rem;">Django</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mini Card 3: Mentorship Query Status -->
+          <div class="hero-mini-card">
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="d-flex align-items-center gap-2">
+                <span class="icon-box icon-box-navy" style="width: 32px; height: 32px; font-size: 0.95rem;">
+                  <i class="bi bi-chat-quote"></i>
+                </span>
+                <div>
+                  <div class="fw-semibold small text-navy" style="font-size: 0.8rem;">Query #104: GATE Preparation</div>
+                  <small class="text-muted" style="font-size: 0.74rem;">Faculty Mentor assigned</small>
+                </div>
+              </div>
+              <span class="badge-status badge-answered">
+                <i class="bi bi-check-circle-fill me-1"></i>Answered
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       How It Works Section
+       ======================================================================== -->
+  <section class="mb-5">
+    <div class="text-center mb-4">
+      <span class="badge bg-light text-teal border px-3 py-1 mb-2 fw-semibold">Simple Mentorship Process</span>
+      <h2 class="h3 fw-bold text-navy">How the Guidance Portal Works</h2>
+      <p class="text-muted small mx-auto" style="max-width: 560px;">
+        Designed for college students to get clear, structured guidance at every stage of their semester.
+      </p>
+    </div>
+
+    <div class="row g-3">
+      <!-- Step 1 -->
+      <div class="col-md-4">
+        <div class="card h-100 p-4">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <span class="rounded-circle bg-navy text-white fw-bold d-inline-flex align-items-center justify-content-center"
+                  style="width: 36px; height: 36px; font-size: 0.9rem;">1</span>
+            <h3 class="h6 fw-bold mb-0 text-navy">Explore Structured Guidance</h3>
+          </div>
+          <p class="text-muted small mb-0">
+            Browse predefined academic topics (study planning, time management, exam prep) and real-world technology career paths with roadmaps.
+          </p>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="col-md-4">
+        <div class="card h-100 p-4">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <span class="rounded-circle text-white fw-bold d-inline-flex align-items-center justify-content-center"
+                  style="width: 36px; height: 36px; font-size: 0.9rem; background-color: var(--teal);">2</span>
+            <h3 class="h6 fw-bold mb-0 text-navy">Ask Your Specific Doubt</h3>
+          </div>
+          <p class="text-muted small mb-0">
+            Create your student account in seconds and submit your academic or career question directly through the portal's query form.
+          </p>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="col-md-4">
+        <div class="card h-100 p-4">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <span class="rounded-circle bg-navy text-white fw-bold d-inline-flex align-items-center justify-content-center"
+                  style="width: 36px; height: 36px; font-size: 0.9rem;">3</span>
+            <h3 class="h6 fw-bold mb-0 text-navy">Track Verified Answers</h3>
+          </div>
+          <p class="text-muted small mb-0">
+            Follow the status of your questions on your personal student dashboard and review detailed guidance replies written by college administrators.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Academic Guidance Topics Section
+       ======================================================================== -->
+  <section class="mb-5">
+    <div class="d-flex flex-wrap justify-content-between align-items-end mb-4 gap-2">
+      <div>
+        <span class="badge bg-light text-teal border px-3 py-1 mb-2 fw-semibold">Academic Excellence</span>
+        <h2 class="h3 fw-bold text-navy mb-1">Academic Guidance Topics</h2>
+        <p class="text-muted small mb-0">Proven study strategies, time management habits, and semester preparation tips.</p>
+      </div>
+      <a href="{% url 'academic_guidance' %}" class="btn btn-outline-navy btn-sm d-inline-flex align-items-center gap-1">
+        <span>View Full Guidance</span>
+        <i class="bi bi-arrow-right"></i>
+      </a>
+    </div>
+
+    <div class="row g-3">
+      {% for topic in academic_topics %}
+      <div class="col-md-6 col-lg-3">
+        <div class="card card-interactive h-100 p-3 d-flex flex-column">
+          <div class="icon-box icon-box-navy mb-3">
+            <i class="bi {{ topic.icon }}"></i>
+          </div>
+          <h3 class="h6 fw-bold text-navy mb-2">{{ topic.title }}</h3>
+          <p class="text-muted small flex-grow-1 mb-3">{{ topic.summary }}</p>
+          <a href="{% url 'academic_guidance' %}" class="small text-teal text-decoration-none fw-semibold mt-auto d-inline-flex align-items-center gap-1">
+            <span>Read advice</span>
+            <i class="bi bi-chevron-right" style="font-size: 0.75rem;"></i>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Career Guidance Section
+       ======================================================================== -->
+  <section class="mb-5">
+    <div class="d-flex flex-wrap justify-content-between align-items-end mb-4 gap-2">
+      <div>
+        <span class="badge bg-light text-teal border px-3 py-1 mb-2 fw-semibold">Industry Paths</span>
+        <h2 class="h3 fw-bold text-navy mb-1">Popular Career Guidance Paths</h2>
+        <p class="text-muted small mb-0">Explore key tech roles, required tools, and beginner step-by-step roadmaps.</p>
+      </div>
+      <a href="{% url 'career_guidance' %}" class="btn btn-outline-navy btn-sm d-inline-flex align-items-center gap-1">
+        <span>Explore All Careers</span>
+        <i class="bi bi-arrow-right"></i>
+      </a>
+    </div>
+
+    <div class="row g-3">
+      {% for career in careers_preview %}
+      <div class="col-md-6 col-lg-3">
+        <div class="card card-interactive h-100 p-3 d-flex flex-column career-card {% cycle 'career-accent-navy' 'career-accent-teal' 'career-accent-blue' 'career-accent-slate' %}">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="icon-box icon-box-teal">
+              <i class="bi {{ career.icon }}"></i>
+            </div>
+            <span class="badge bg-light text-navy border small">Career Track</span>
+          </div>
+
+          <h3 class="h6 fw-bold text-navy mb-1">
+            <a href="{% url 'career_detail' career.slug %}" class="text-navy text-decoration-none">
+              {{ career.title }}
+            </a>
+          </h3>
+          <p class="text-muted small flex-grow-1 mb-3">{{ career.description|truncatechars:95 }}</p>
+
+          <a href="{% url 'career_detail' career.slug %}" class="btn btn-sm btn-outline-teal mt-auto w-100">
+            View Career Details &rarr;
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       About Section (id="about")
+       ======================================================================== -->
+  <section id="about" class="card p-4 p-lg-5 bg-white border">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-8">
+        <span class="badge bg-light text-navy border px-3 py-1 mb-2 fw-semibold">Portal Overview</span>
+        <h2 class="h4 fw-bold text-navy mb-2">About the Student Guidance Portal</h2>
+        <p class="text-muted small mb-3" style="line-height: 1.7;">
+          The Student Guidance Portal is an online mentorship platform developed to assist undergraduate students
+          throughout their college journey. We provide structured academic planning strategies, curated technology
+          career roadmaps, and a direct communication channel with faculty advisors and administrators.
+        </p>
+        <div class="d-flex flex-wrap gap-2">
+          <span class="badge bg-light text-navy border"><i class="bi bi-journal-check me-1"></i>Academic Planning</span>
+          <span class="badge bg-light text-navy border"><i class="bi bi-compass me-1"></i>Career Roadmaps</span>
+          <span class="badge bg-light text-navy border"><i class="bi bi-chat-quote me-1"></i>Direct Mentorship</span>
+          <span class="badge bg-light text-navy border"><i class="bi bi-shield-check me-1"></i>Verified Answers</span>
+        </div>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        {% if not user.is_authenticated %}
+        <div class="d-grid gap-2 d-sm-flex justify-content-lg-end">
+          <a href="{% url 'register' %}" class="btn btn-teal">
+            <i class="bi bi-person-plus me-1"></i>Register as Student
+          </a>
+          <a href="{% url 'login' %}" class="btn btn-outline-navy">
+            <i class="bi bi-box-arrow-in-right me-1"></i>Student Login
+          </a>
+        </div>
+        {% else %}
+        <a href="{% url 'dashboard' %}" class="btn btn-primary">
+          <i class="bi bi-speedometer2 me-1"></i>Open My Dashboard
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+</div>
+{% endblock %}
